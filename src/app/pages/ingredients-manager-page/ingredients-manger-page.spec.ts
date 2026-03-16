@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IngredientsMangerPage } from './ingredients-manger-page';
+import { IngredientsManagerPage } from './ingredients-manger-page';
 
 describe('IngredientsMangerPage', () => {
-  let component: IngredientsMangerPage;
-  let fixture: ComponentFixture<IngredientsMangerPage>;
+  let component: IngredientsManagerPage;
+  let fixture: ComponentFixture<IngredientsManagerPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IngredientsMangerPage]
+      imports: [IngredientsManagerPage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(IngredientsMangerPage);
+    fixture = TestBed.createComponent(IngredientsManagerPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

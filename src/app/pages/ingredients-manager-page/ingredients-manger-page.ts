@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './ingredients-manger-page.html',
   styleUrl: './ingredients-manger-page.css',
 })
-export class IngredientsMangerPage implements OnInit {
+export class IngredientsManagerPage implements OnInit {
   // 1. Déclaration du tableau de stockage des ingrédients
   public ingredients: Ingredient[] = [];
 
