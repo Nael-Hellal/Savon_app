@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Recette } from '../../src/app/models/recette.model';
-import { RecetteServiceTs } from '../../services/recette.service.ts';
-
+import { RecetteService } from '../../services/recette.service.ts';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-recipe-manager-page',
   imports: [CommonModule],
@@ -10,38 +9,21 @@ import { RecetteServiceTs } from '../../services/recette.service.ts';
   styleUrl: './recipe-manager-page.css',
 })
 export class RecipeManagerPage implements OnInit {
-  public recetteSelectionnee: Recette | null = null;
-  public recettes: Recette[] = [];
-  constructor(private recetteServiceTs: RecetteServiceTs) { }
-  ouvrirModale(recette: Recette): void {
-    this.recetteSelectionnee = recette;
-  }
-
+  public recettes: Recette[] = []
+  constructor(private recetteService: RecetteService) { }
   ngOnInit(): void {
-    this.recetteServiceTs.getRecettes();
+    this.chargerRecettes();
   }
-
-  getRecettes(): void {
-    this.recetteServiceTs.getRecettes().subscribe({
-      next: (data) => {
-        this.recettes = data;
-        console.log("Recettes récupérés avec succès !")
-      },
-      error: (err) => {
-        console.error("Erreur API : ", err);
-      }
-    }
-    )
-    supprimerRecette(id: number): void {
-      if(confirm("Supprimer cet recettes ?")) {
-      this.recetteServiceTs.supprimerRecette(id).subscribe(() =>
-        this.getRecettes());
-    }
-    /**
-    * Réinitialise la sélection à la fermeture
-    */
-    fermerModale(): void {
-      this.recetteSelectionnee = null;
-    }
-
+  chargerRecettes(): void {
+    this.recetteService.getRecettes().subscribe({
+      next: (data) => this.recettes = data,
+      error: (err) => console.error("Erreur API", err)
+    })
   }
+  supprimerRecette(id: number): void {
+    if (confirm("Supprimer cette recette ?")) {
+      this.recetteService.deleteRecette(id).subscribe(() =>
+        this.chargerRecettes());
+    }
+  }
+}
