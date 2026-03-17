@@ -13,6 +13,7 @@ import { RecetteService } from '../../services/recette.service.ts';
   styleUrl: './recipe-calculator-page.css',
 })
 export class RecipeCalculatorPage implements OnInit {
+  public recetteAffichee: Recette | null = null;
   // Liste des ingrédients disponibles :
   public ingredientsDispo: Ingredient[] = [];
   // Ingrédients sélectionnés :
@@ -77,7 +78,7 @@ export class RecipeCalculatorPage implements OnInit {
   */
   onSubmit(): void {
     // 1. Associer les ingrédients à ligneIngredientDTO :
-    const ligneIngredientDTOs = this.selectionIngredients.map(ligne => ({
+    const LigneIngredientDTO = this.selectionIngredients.map(ligne => ({
       quantite: ligne.quantite,
       pourcentage: ligne.pourcentage,
       ingredientId: ligne.ingredient?.id ?? 0
@@ -86,17 +87,36 @@ export class RecipeCalculatorPage implements OnInit {
     // 2. Finalisation de l'objet RecetteFormDTO :
     const recetteEnvoyee: RecetteFormDTO = {
       ...this.nouvelleRecetteDTO,
-      ligneIngredients: ligneIngredientDTOs
+      ligneIngredients: LigneIngredientDTO
     };
     //console.log('Objet RecetteDTO prêt à envoyer :', recetteEnvoyee);
     // 3. Envoi de la recette à l'API via le service recette :
     this.recetteService.createRecette(recetteEnvoyee).subscribe({
       next: (recette: Recette) => {
+        this.recetteAffichee = recette; // On récupère la recette avec les scores
+        alert("Recette calculée et enregistrée avec succès !");
         console.log('Recette reçue du backend :', recette);
       },
       error: (err) => {
+        alert("Erreur lors du calcul. Vérifier vos données.");
         console.error('Erreur lors de la création de la recette :', err);
       }
     });
+
+ 
   }
+
+    resetRecette(index: number) {
+    this.nouvelleRecetteDTO = {
+    id: null,
+    titre: '',
+    description: '',
+    surgraissage: 0,
+    avecSoude: false,
+    concentrationAlcalin: 0, // Rajouter le n à la fin
+    ligneIngredients: []
+      }
+      this.recetteAffichee = null
+      this.selectionIngredients.splice(index)
+    }
 }

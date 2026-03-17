@@ -26,4 +26,17 @@ export class RecipeManagerPage implements OnInit {
         this.chargerRecettes());
     }
   }
+  public recetteSelectionnee: Recette | null = null;
+  /**
+  * Définit la recette sélectionnée pour l'affichage des détails
+  */
+  ouvrirModale(recette: Recette): void {
+    this.recetteSelectionnee = recette;
+  }
+  /**
+  * Réinitialise la sélection à la fermeture
+  */
+  fermerModale(): void {
+    this.recetteSelectionnee = null;
+  }
 }
