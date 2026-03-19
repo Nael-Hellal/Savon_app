@@ -18,9 +18,20 @@
                     <li><a class="dropdown-item" routerLink="/login">Se connecter</a></li>
                     <li><a class="dropdown-item" routerLink="/account">Mon compte</a></li>
                     <li><a class="dropdown-item" routerLink="/subscribe">Créer un compte</a></li>
+                    <!-- Rajouter/activer dans liste déroulante la déconnexion : -->
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item text-danger" routerLink="#"
+                            (click)="authService.logout()">Déconnexion</a></li>
+                    <!--Dans navbar.html (exemple de condition) -->
+                    @if (authService.isAuthenticated()) {
+                    @if (authService.hasRole('ROLE_ADMIN')) {
+                    <li class="nav-item admin-only">...</li>
+                    }
+                    }
                     <!-- <li><hr class="dropdown-divider"></li> -->
-                    <!-- <li><a class="dropdown-item text-danger"
-routerLink="#" (click)="logout()">Déconnexion</a></li>
+                    <!-- <li><a class="dropdown-item text-danger" routerLink="#" (click)="logout()">Déconnexion</a></li>
 -->
                 </ul>
             </div>

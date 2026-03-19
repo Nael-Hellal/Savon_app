@@ -5,7 +5,6 @@ import { SubscribePage } from './pages/subscribe-page/subscribe-page';
 import { AccountManagerPage } from './pages/account-manager-page/account-manager-page';
 import { RecipeCalculatorPage } from './pages/recipe-calculator-page/recipe-calculator-page';
 import { RecipeManagerPage } from './pages/recipe-manager-page/recipe-manager-page';
-
 import { AboutPage } from './pages/about-page/about-page';
 import { IngredientsManagerPage } from './pages/ingredients-manager-page/ingredients-manger-page';
 import { UsersManagerPage } from './pages/users-manager-page/users-manger-page';
