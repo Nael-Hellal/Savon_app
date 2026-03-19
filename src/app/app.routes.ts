@@ -10,6 +10,7 @@ import { AboutPage } from './pages/about-page/about-page';
 import { IngredientsManagerPage } from './pages/ingredients-manager-page/ingredients-manger-page';
 import { UsersManagerPage } from './pages/users-manager-page/users-manger-page';
 import { LegalNoticesPage } from './pages/legal-notices-page/legal-notices-page';
+import { authGuard } from './guards/auth-guard';
 export const routes: Routes = [
 
     // Accès & redirection vers la page home :
@@ -22,28 +23,34 @@ export const routes: Routes = [
 
     { path: 'login', component: LoginPage },
 
-    { path: 'subscribe', component: SubscribePage},
+    { path: 'subscribe', component: SubscribePage },
 
     // Compte utilisateur :
 
-    { path: 'account', component: AccountManagerPage },
+    { path: 'account', component: AccountManagerPage, canActivate: [authGuard] },
 
     // Recettes :
 
     { path: 'recipe-calculator', component: RecipeCalculatorPage },
 
-    { path: 'recipe-manager', component: RecipeManagerPage},
+    {
+        path: 'recipe-manager', component: RecipeManagerPage, canActivate:
+            [authGuard]
+    },
 
     // Administration - Gestion :
 
-    { path: 'users-manager', component: UsersManagerPage },
+    { path: 'users-manager', component: UsersManagerPage, canActivate: [authGuard] },
 
-    { path: 'ingredients-manager', component: IngredientsManagerPage},
+    { path: 'ingredients-manager', component: IngredientsManagerPage, canActivate: [authGuard] },
 
     // A propos (redirection vers home en cas d'url invalide):
 
-    { path: "legal-notice", component: LegalNoticesPage},
+    { path: "legal-notice", component: LegalNoticesPage },
 
-    { path: "about", component: AboutPage } // Toujours mis en dernier !
+    { path: "about", component: AboutPage }, // Toujours mis en dernier !
+
+    // Redirection par défaut vers home (en cas d'url invalide) :
+    { path: '**', redirectTo: 'home' }
 
 ];
